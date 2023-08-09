@@ -9,10 +9,12 @@ self.onmessage = async (event) => {
 function loadImageData(url) {
     return new Promise((resolve, reject) => {
         const img = new Image();
-        img.crossOrigin = 'Anonymous';
+        img.crossOrigin = 'anonymous';
         img.onload = () => {
             const canvas = new OffscreenCanvas(img.width, img.height);
             const context = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
             context.drawImage(img, 0, 0);
             resolve(context.getImageData(0, 0, img.width, img.height));
         };
